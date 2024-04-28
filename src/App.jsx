@@ -1,16 +1,26 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RouteLayout from './RouteLayout/RouteLayout';
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <h1>Hello</h1>
-    </>
-  )
+  const router = createBrowserRouter([
+    {
+      path: "/My-Todo-App",
+      element: <RouteLayout />,
+      //errorElement: <ErrorPage />,
+      children: [
+        { index: true, element: <><h1>Home Page</h1></> },
+        // { path: '/explore', element: <ExporePage /> },
+        // { path: '/reel', element: <ReelPage /> },
+        // { path: '/messages', element: <MessagesPage /> },
+        // { path: '/profile', element: <ProfilePage /> },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App
