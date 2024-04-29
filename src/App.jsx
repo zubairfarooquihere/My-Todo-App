@@ -11,7 +11,7 @@ function App() {
       element: <RouteLayout />,
       //errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <><h1>Home Page</h1></> },
+        { index: true, element: <></> },
         // { path: '/explore', element: <ExporePage /> },
         // { path: '/reel', element: <ReelPage /> },
         // { path: '/messages', element: <MessagesPage /> },
