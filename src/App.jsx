@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import React,{ useState } from 'react'
 import './App.css'
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RouteLayout from './RouteLayout/RouteLayout';
+
+import Tabs from './Pages/Home/Home';
 function App() {
 
   const router = createBrowserRouter([
@@ -11,7 +13,7 @@ function App() {
       element: <RouteLayout />,
       //errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <></> },
+        { index: true, element: <Tabs /> },
         // { path: '/explore', element: <ExporePage /> },
         // { path: '/reel', element: <ReelPage /> },
         // { path: '/messages', element: <MessagesPage /> },
