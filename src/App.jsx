@@ -4,7 +4,7 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RouteLayout from './RouteLayout/RouteLayout';
 
-import Tabs from './Pages/Home/Home';
+import Home from './Pages/Home/Home';
 function App() {
 
   const router = createBrowserRouter([
@@ -13,7 +13,7 @@ function App() {
       element: <RouteLayout />,
       //errorElement: <ErrorPage />,
       children: [
-        { index: true, element: <Tabs /> },
+        { index: true, element: <Home /> },
         // { path: '/explore', element: <ExporePage /> },
         // { path: '/reel', element: <ReelPage /> },
         // { path: '/messages', element: <MessagesPage /> },
