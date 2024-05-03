@@ -1,0 +1,30 @@
+.options {
+  position: absolute;
+  top: 1rem;
+  right: 9rem;
+  background-color: whitesmoke;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 5;
+  width: 10rem;
+  user-select: none;
+
+  &--item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.35rem;
+
+    &--title {
+      margin-right: 1rem;
+    }
+
+    &--icon {
+      color: rgb(73, 228, 65);
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 0.75rem;
+    }
+  }
+}
