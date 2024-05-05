@@ -6,7 +6,9 @@ import { arrayMove } from "@dnd-kit/sortable";
 
 import Subtabs from './Subtabs/Subtabs';
 import OptionMainTab from './OptionMainTab/OptionMainTab';
+import InfoWidget from './InfoWidget/InfoWidget';
 
+import { AnimatePresence } from 'framer-motion';
 let tabsData = {
     '#@123': {_id: '#@123', title: 'Home', subTab: [{_id: '@345', title: 'Home-1', todos: []}, {_id: '@215', title: 'Home-2', todos: []}, {_id: '@652', title: 'Home-3', todos: []}]},
     '#@452': {_id: '#@452', title: 'Work', subTab: [{_id: '@987', title: 'Work-1', todos: []}, {_id: '@789', title: 'Work-2', todos: []}, {_id: '@369', title: 'Work-3', todos: []}]},
@@ -16,6 +18,7 @@ let tabsData = {
 
 function Tabs() {
   // const optionsRef = useRef(null);
+  const [infoWidget, setInfoWidget] = useState(false);
   const [allMainTabsIDs, setAllMainTabs] = useState([]);
   const [mainTabSelectedData, setMainTabSelected] = useState(null);//tabsData['#@123']
   const [subTabSelectedID, setSubTabSelected] = useState(null);
@@ -31,20 +34,6 @@ function Tabs() {
     const SubtabSelected = AllSubTabs[0];
     setSubTabSelected(SubtabSelected._id);
   },[]); 
-
-
-  const addsubtab = () => {
-    const _id = "#"+ Math.random(10).toString(36); // Generate a random alphanumeric string
-    const title = 'New Tab';
-    console.log(mainTabSelectedData);
-    let subtabArray = [...mainTabSelectedData.subTab];
-    subtabArray.push({ _id: _id, title: title });
-    tabsData = {
-      ...tabsData,
-      [mainTabSelectedData._id]: { ...mainTabSelectedData, subTab: [...subtabArray]}
-    };
-    setMainTabSelected(tabsData[mainTabSelectedData._id])
-  }
 
   const getTaskPos = (id, array) => array.findIndex((task) => task._id === id);
 
@@ -73,9 +62,12 @@ function Tabs() {
 
   return (
     <>
+      <AnimatePresence mode='wait'>
+        {infoWidget && <InfoWidget />}
+      </AnimatePresence>
       <div className={classes.tabs}>
         <DndContext id="subtab" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >
-          {mainTabSelectedData && <Subtabs classes={classes} mainTabSelectedData={mainTabSelectedData} setSubTabSelected={setSubTabSelected} subTabSelectedID={subTabSelectedID} addsubtab={addsubtab} />}
+          {mainTabSelectedData && <Subtabs mainTabSelectedData={mainTabSelectedData} setSubTabSelected={setSubTabSelected} subTabSelectedID={subTabSelectedID} />}
         </DndContext>
         <div className={classes.tabs__maintab}>
           <span onClick={()=>{setOpenMainTabOption(true)}} className={`${classes['tabs__maintab--tab']}`}>{mainTabSelectedData && mainTabSelectedData.title}</span>
@@ -83,7 +75,8 @@ function Tabs() {
             (<DndContext id="maintaboptions" collisionDetection={closestCorners} onDragEnd={handleDragEnd2} >
               <OptionMainTab tabsData={tabsData} allMainTabsIDs={allMainTabsIDs} setSubTabSelected={setSubTabSelected} mainTabSelectedData={mainTabSelectedData} setOpenMainTabOption={setOpenMainTabOption} setMainTabSelected={setMainTabSelected} />
              </DndContext>
-            )}
+            )
+          }
         </div>
       </div>
     </>

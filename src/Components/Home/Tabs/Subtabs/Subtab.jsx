@@ -10,15 +10,14 @@ function Subtab(props) {
     
     return (
       <span
-        //onClick={onclickFunc}  // Ensure onClick is placed before listeners
-        onMouseDown={onclickFunc}
+        key={id}
+        id={id}
+        onDoubleClick={onclickFunc}
         ref={setNodeRef}
         style={style}
         {...attributes}
-        className={gotclass}
-        key={id}
-        id={id}
         {...listeners}  // Spread listeners after onClick
+        className={gotclass}
       >
         {title}
       </span>

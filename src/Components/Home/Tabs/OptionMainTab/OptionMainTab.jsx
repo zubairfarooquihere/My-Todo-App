@@ -2,7 +2,6 @@ import React,{ useEffect, useRef } from 'react'
 import classes from './OptionMainTab.module.scss';
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import Option from './Option';
-
 function OptionMainTab(props) {
   const { tabsData, allMainTabsIDs, mainTabSelectedData, setOpenMainTabOption, setMainTabSelected, setSubTabSelected} = props;
   const optionsRef = useRef(null);

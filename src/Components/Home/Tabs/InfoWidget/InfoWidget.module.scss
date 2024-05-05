@@ -1,0 +1,114 @@
+.infoWidget {
+  width: 50rem;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  background-color: #f9feff;
+
+  &__dropdown {
+    display: flex;
+    justify-content: center;
+
+    &_select {
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid #c9d5db;
+      border-radius: 3rem;
+      font-size: 1.85rem;
+      background-color: #e1f5ff;
+      padding: 0.5rem 0;
+    }
+
+    &_option {
+      background-color: tan !important;
+    }
+  }
+}
+
+.mainTab {
+  display: flex;
+  flex-direction: column;
+  &__title {
+    margin: 1.75rem auto;
+    font-size: 1.75rem;
+  }
+
+  &__inputDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+      margin-top: 10px;
+      border: none;
+      font-size: 1.5rem;
+      border-bottom: 1px solid rgb(197, 197, 197);
+      background-color: transparent;
+      padding: 5px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+.subTab {
+  display: flex;
+  flex-direction: column;
+
+  &__inputDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+      margin-top: 30px;
+      border: none;
+      font-size: 1.5rem;
+      border-bottom: 1px solid rgb(197, 197, 197);
+      background-color: transparent;
+      padding: 5px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+  }
+}
+
+.btngroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+
+  button {
+    cursor: pointer;
+    border: none;
+    padding: 1rem 1.75rem;
+    border-radius: 3rem;
+    font-size: 1.5rem;
+    color: white;
+  }
+
+  &__delete {
+    background-color: red;
+  }
+
+  &__action {
+    &--Cancel {
+      background-color: rgb(198, 198, 198);
+    }
+
+    &--Save {
+      background-color: rgb(153, 249, 9);
+      margin-left: 15px;
+      padding: 1rem 2.1rem !important;
+    }
+  }
+}

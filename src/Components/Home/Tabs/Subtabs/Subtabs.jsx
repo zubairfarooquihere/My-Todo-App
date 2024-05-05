@@ -4,7 +4,20 @@ import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortabl
 import { FaCirclePlus } from "react-icons/fa6";
 import classes from './Subtabs.module.scss';
 function Subtabs(props) {
-  const {mainTabSelectedData, setSubTabSelected, subTabSelectedID, addsubtab} = props;
+  const { mainTabSelectedData, setSubTabSelected, subTabSelectedID } = props;
+
+  const addsubtab = () => {
+    const _id = "#"+ Math.random(10).toString(36); // Generate a random alphanumeric string
+    const title = 'New Tab';
+    //console.log(mainTabSelectedData);
+    // let subtabArray = [...mainTabSelectedData.subTab];
+    // subtabArray.push({ _id: _id, title: title });
+    // tabsData = {
+    //   ...tabsData,
+    //   [mainTabSelectedData._id]: { ...mainTabSelectedData, subTab: [...subtabArray]}
+    // };
+    // setMainTabSelected(tabsData[mainTabSelectedData._id])
+  }
 
   return (
     <>
