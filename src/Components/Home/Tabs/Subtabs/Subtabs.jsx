@@ -2,21 +2,15 @@ import React,{ useMemo } from 'react'
 import Subtab from './Subtab';
 import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { FaCirclePlus } from "react-icons/fa6";
+import { useDispatch } from 'react-redux';
+import { TabsActions } from '../../../../store/Tabs-slice';
 import classes from './Subtabs.module.scss';
 function Subtabs(props) {
-  const { mainTabSelectedData, setSubTabSelected, subTabSelectedID } = props;
+  const dispatch = useDispatch();
+  const { mainTabSelectedData, subTabSelectedID, setSubTabSelected } = props;
 
   const addsubtab = () => {
-    const _id = "#"+ Math.random(10).toString(36); // Generate a random alphanumeric string
-    const title = 'New Tab';
-    //console.log(mainTabSelectedData);
-    // let subtabArray = [...mainTabSelectedData.subTab];
-    // subtabArray.push({ _id: _id, title: title });
-    // tabsData = {
-    //   ...tabsData,
-    //   [mainTabSelectedData._id]: { ...mainTabSelectedData, subTab: [...subtabArray]}
-    // };
-    // setMainTabSelected(tabsData[mainTabSelectedData._id])
+    dispatch(TabsActions.addSubTab({mainTabId: mainTabSelectedData._id}));
   }
 
   return (

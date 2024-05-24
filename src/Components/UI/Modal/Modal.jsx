@@ -15,10 +15,11 @@ function Modal(props) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, }}
-      animate={{ opacity: 0.4, }}
-      exit={{ opacity: 0, }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.4 }}
+      exit={{ opacity: 0 }}
       className={classes.modal}
+      onClick={onClose}
     />
   );
 }

@@ -28,3 +28,14 @@
     }
   }
 }
+
+.info {
+  cursor: pointer;
+  position: absolute;
+  right: 12.5px;
+  top: 5px;
+
+  &:hover {
+    transform: scale(1.5);
+  }
+}
