@@ -27,6 +27,13 @@ const TabsSlice = createSlice({
   name: "Tabs",
   initialState: { tabsData: tabsData }, // Make sure 'item' is initialized as an empty array
   reducers: {
+    addMainTab(state, action) {
+      let { title } = action.payload;
+      // console.log("mainTabId:", mainTabId);
+      const mainTabId = "#" + Math.random().toString(36).substring(2, 9); // Generate a random alphanumeric string
+      state.tabsData[mainTabId] = { _id: mainTabId, title: title, subTab: [] }
+      state.tabsData.MainTabs.push(mainTabId);
+    },
     renameMainTab(state, action) {
       const { mainTabId, newTitle } = action.payload;
       // Check if the mainTabId exists in the state
@@ -34,6 +41,30 @@ const TabsSlice = createSlice({
         state.tabsData[mainTabId].title = newTitle;
       } else {
         console.error(`Main tab with ID ${mainTabId} does not exist.`);
+      }
+    },
+    deleteMainTab(state, action) {
+      const { mainTabId } = action.payload;
+      // Check if the mainTabId exists in the state
+      if (state.tabsData[mainTabId]) {
+        // Create a new object for tabsData without the specified mainTabId
+        let demoTabs = JSON.parse(JSON.stringify(state.tabsData));
+        const { [mainTabId]: deletedTab, ...updatedTabsData } = demoTabs;
+        updatedTabsData.MainTabs = updatedTabsData.MainTabs.filter((item)=>{ return item !== mainTabId});
+        state.tabsData = updatedTabsData;
+      } else {
+        console.error(`Main tab with ID ${mainTabId} does not exist.`);
+        return state; // Return the current state unchanged
+      }
+    },
+    reorderMainTab(state, action) {
+      const { mainTabId, newList } = action.payload;
+      // Check if the mainTabId exists in the state
+      if (state.tabsData[mainTabId]) {
+        state.tabsData.MainTabs = newList
+      } else {
+        console.error(`Main tab with ID ${mainTabId} does not exist.`);
+        return state; // Return the current state unchanged
       }
     },
     addSubTab(state, action) {
@@ -87,6 +118,16 @@ const TabsSlice = createSlice({
         state.tabsData[mainTabId].subTab = subTabArray;
       } else {
         console.error(`Main tab with ID ${mainTabId} does not exist.`);
+      }
+    },
+    reorderSubTab(state, action) {
+      const { mainTabId, newList } = action.payload;
+      // Check if the mainTabId exists in the state
+      if (state.tabsData[mainTabId]) {
+        state.tabsData[mainTabId].subTab = newList;
+      } else {
+        console.error(`Main tab with ID ${mainTabId} does not exist.`);
+        return state; // Return the current state unchanged
       }
     },
   },

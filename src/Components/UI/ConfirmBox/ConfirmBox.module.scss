@@ -1,0 +1,59 @@
+.ConfirmBox {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: white;
+  //height: 270px;
+  width: 47rem;
+  transform: translate(-50%, 50%);
+  border-radius: 15px;
+  z-index: 176;
+  padding: 15px;
+
+  &__title {
+    color: rgb(232, 74, 74);
+    font-size: 21px;
+    font-weight: 900;
+    margin-bottom: 10px;
+  }
+
+  &__info {
+    font-size: 17px;
+    height: 60%;
+    margin-bottom: 10px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    &--btn {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 9rem;
+      padding: 1rem 0rem;
+      border: none;
+      border-radius: 15rem;
+      background-color: violet;
+      color: white;
+    }
+
+    &--Cancel {
+      background-color: rgb(198, 198, 198);
+    }
+
+    &--Save {
+      margin-left: 15px;
+      background-color: rgb(253, 182, 50);
+    }
+  }
+
+  
+}
+
+.border {
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}

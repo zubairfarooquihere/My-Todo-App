@@ -1,11 +1,16 @@
-import React,{ useEffect, useRef } from 'react'
+import React,{ useState, useEffect, useRef } from 'react'
 import classes from './OptionMainTab.module.scss';
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { BsInfoCircle } from "react-icons/bs";
+import { FaPlus } from "react-icons/fa6";
+import { useDispatch } from 'react-redux';
+import { TabsActions } from '../../../../store/Tabs-slice';
 import Option from './Option';
 function OptionMainTab(props) {
+  const dispatch = useDispatch();
   const { setInfoWidget, tabsData, allMainTabsIDs, mainTabSelectedData, setOpenMainTabOption, setMainTabSelected, setSubTabSelected} = props;
   const optionsRef = useRef(null);
+  const [newMainTab, setnewMainTab] = useState('');
 
   useEffect(()=>{
     function handleClickOutside(event) {
@@ -19,6 +24,13 @@ function OptionMainTab(props) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   },[]); 
+
+  const addMainTab = (title) => {
+    if(title.trim() !== '') {
+      dispatch(TabsActions.addMainTab({title: title}));
+      setnewMainTab('');
+    }
+  }
 
   return (
     <>
@@ -36,6 +48,12 @@ function OptionMainTab(props) {
               return <Option key={tab._id} tab={tab} onclickFunc={onclickFunc} selected={selected} classes={classes} />
           })}
         </SortableContext>
+        <div key={'AddMainTab'} className={`${classes["options--item"]}`} >
+          <input onKeyDown={(event)=>{if(event.key === 'Enter'){addMainTab(newMainTab)}}} onChange={(event)=>{setnewMainTab(event.target.value)}} value={newMainTab} className={`${classes["options--item--input"]}`} />
+          <span onClick={()=>{addMainTab(newMainTab)}} className={`${classes["options--item--addSign"]}`}>
+            <FaPlus />
+          </span>
+        </div>
       </div>
     </>
   )

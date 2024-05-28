@@ -27,11 +27,27 @@
 }
 
 .mainTab {
+  position: relative;
   display: flex;
   flex-direction: column;
+
   &__title {
+    display: flex;
+    justify-content: center;
     margin: 1.75rem auto;
+    margin-right: 35px;
+    width: 100%;
     font-size: 1.75rem;
+  }
+
+  &__option {
+    position: absolute;
+    right: 38%;
+    cursor: pointer;
+    border-radius: none;
+    color: orange;
+    background-color: transparent;
+    font-size: 1.15rem;
   }
 
   &__inputDiv {

@@ -9,9 +9,11 @@ import OptionMainTab from './OptionMainTab/OptionMainTab';
 import InfoWidget from './InfoWidget/InfoWidget';
 
 import { AnimatePresence } from 'framer-motion';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { TabsActions } from '../../../store/Tabs-slice';
 
 function Tabs() {
+  const dispatch = useDispatch();
   const tabsData = useSelector((state) => state.TabsSlice.tabsData);
   const [infoWidget, setInfoWidget] = useState(false);
   const [openMainTabOption, setOpenMainTabOption] = useState(false);
@@ -22,16 +24,25 @@ function Tabs() {
   useEffect(()=>{
     let gotMainTabsId = tabsData['MainTabs'];
     setAllMainTabs(gotMainTabsId);
-    const AllMaintabsId = gotMainTabsId.map((id) => tabsData[id]);
-    let maintabSelected = AllMaintabsId[0];
-    if(mainTabSelectedData){
-      maintabSelected = tabsData[mainTabSelectedData._id]
-    }
-    setMainTabSelected(maintabSelected);
-    const AllSubTabs = maintabSelected['subTab'];
-    if(AllSubTabs.length > 0) {
-      const SubtabSelected = AllSubTabs[0];
-      setSubTabSelected(SubtabSelected._id);
+    if(gotMainTabsId.length > 0){
+      const AllMaintabsId = gotMainTabsId.map((id) => tabsData[id]);
+      let maintabSelected = AllMaintabsId[0];
+      if(mainTabSelectedData && tabsData[mainTabSelectedData._id]){
+        maintabSelected = tabsData[mainTabSelectedData._id]
+      }
+      setMainTabSelected(maintabSelected);
+      const AllSubTabs = maintabSelected['subTab'];
+      if(AllSubTabs.length > 0) {
+        if(subTabSelectedID && mainTabSelectedData && tabsData[mainTabSelectedData._id].subTab.some(item => item._id === subTabSelectedID)){
+          
+        }else{
+          const SubtabSelected = AllSubTabs[0];
+          setSubTabSelected(SubtabSelected._id);
+        }
+      }
+    }else{
+      setMainTabSelected(null);
+      setSubTabSelected(null);
     }
   },[tabsData]); 
 
@@ -44,18 +55,19 @@ function Tabs() {
     const newPos = getTaskPos(over.id, mainTabSelectedData.subTab);
     setMainTabSelected((tab) => {
       let gotSubTab = arrayMove(tab.subTab, originalPos, newPos);
+      dispatch(TabsActions.reorderSubTab({mainTabId: mainTabSelectedData._id, newList: gotSubTab}));
       return {...tab, subTab: gotSubTab}
     })
   }
 
   const handleDragEnd2 = (event) => {
-    console.log('DRAG DRAG DRAG');
     const { active, over } = event;
     if (active.id === over.id) return;
     const originalPos = allMainTabsIDs.findIndex((id) => id === active.id);
     const newPos = allMainTabsIDs.findIndex((id) => id === over.id);
     setAllMainTabs((array) => {
       let gotSubTab = arrayMove(array, originalPos, newPos);
+      dispatch(TabsActions.reorderMainTab({mainTabId: mainTabSelectedData._id, newList: gotSubTab}));
       return gotSubTab;
     })
   }
@@ -63,7 +75,7 @@ function Tabs() {
   return (
     <>
       <AnimatePresence mode='wait'>
-        {infoWidget && <InfoWidget tabsData={tabsData} mainTabSelectedData={mainTabSelectedData} setInfoWidget={setInfoWidget} />}
+        {infoWidget && <InfoWidget tabsData={tabsData} mainTabSelectedData={mainTabSelectedData} setMainTabSelected={setMainTabSelected} setInfoWidget={setInfoWidget} />}
       </AnimatePresence>
       <div className={classes.tabs}>
         <DndContext id="subtab" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >

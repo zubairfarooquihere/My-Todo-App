@@ -3,8 +3,7 @@ import classes from "./Modal.module.scss";
 import { motion } from "framer-motion";
 
 function Modal(props) {
-  const { onClose } = props;
-
+  const { onClose, zIndex } = props;
   useEffect(() => {
     document.body.style.overflowY = "initial";
 
@@ -19,6 +18,7 @@ function Modal(props) {
       animate={{ opacity: 0.4 }}
       exit={{ opacity: 0 }}
       className={classes.modal}
+      style={{zIndex: zIndex ? zIndex : 100}}
       onClick={onClose}
     />
   );
