@@ -1,0 +1,91 @@
+.header {
+  height: 150px;
+  width: 100%;
+  font-family: inherit;
+  padding: 1.5rem 2rem;
+
+  &__titleSection {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &--title {
+      border: none;
+      background-color: inherit;
+      font-size: 2.3rem;
+      font-family: inherit;
+      color: #646464;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &--crossButton {
+      cursor: pointer;
+      color: #b4b4b4;
+      height: 100%;
+      font-size: 0.85rem;
+      border: none;
+      background-color: inherit;
+    }
+  }
+
+  &__taskCountSection {
+    margin-top: 15px;
+    padding: 0 0.3rem;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    color: #95a5ad;
+
+    &--taskCount {
+    }
+
+    &--listStatus {
+      display: flex;
+      font-weight: 300;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &-list {
+        padding: 0.3rem 0.8rem;
+      }
+
+      &-activeList {
+        background-color: #a6b5bc;
+        color: white;
+        border-radius: 3rem;
+      }
+    }
+  }
+
+  &__taskInputSection {
+    margin-top: 25px;
+
+    input {
+      background-color: inherit;
+      border: none;
+      width: 100%;
+      color: #999999;
+
+      font-size: 1.5rem;
+      font-weight: 300;
+      font-family: sans-serif;
+
+      &::placeholder {
+        color: #c4c4c4; // Your desired color
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.border {
+  border-bottom: 1px solid #e2e2e2;
+  margin-top: -15px;
+  margin-bottom: 20px;
+}
