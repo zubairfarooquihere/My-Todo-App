@@ -1,4 +1,8 @@
 .TodoLists {
+  user-select: none;
+  display: flex;
+  flex-wrap: wrap;
   padding: 2.5rem;
   background-color: #e4f2f7;
+  height: 100%;
 }

@@ -4,14 +4,15 @@ import { ImCross } from "react-icons/im";
 
 let cls = classes['header__taskCountSection--listStatus-activeList'];
 
-function Header() {
+function Header(props) {
+  const { name } = props;
   const [value, setValue] = useState('Todo List');
 
   return (
     <>
     <div className={classes.header}>
       <div className={classes.header__titleSection}>
-        <input onChange={(e)=>{setValue(e.target.value)}} className={classes['header__titleSection--title']} value={value} />
+        <input onChange={(e)=>{setValue(e.target.value)}} className={classes['header__titleSection--title']} value={name} />
         <button className={classes['header__titleSection--crossButton']}><ImCross /></button>
       </div>
       <div className={classes.header__taskCountSection}>
