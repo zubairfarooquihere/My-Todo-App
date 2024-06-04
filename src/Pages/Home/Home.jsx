@@ -7,7 +7,7 @@ import TodoLists from "../../Components/Home/TodoLists/TodoLists";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
-let arr = [1, 2, 3, 4];
+let arr = [1];
 
 export default function Home() {
   const [list, setList] = useState(arr);
