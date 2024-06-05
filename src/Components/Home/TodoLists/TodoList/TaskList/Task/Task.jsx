@@ -12,11 +12,11 @@ import { CSS } from "@dnd-kit/utilities";
 let success = classes['task__success'];
 
 function Task(props) {
-  const { taskTitle } = props; 
+  const { taskTitle, id } = props; 
   const [title, setTitle] = useState(taskTitle);
   const [status, setStatus] = useState('active');
 
-  let id = taskTitle;
+  // let id = taskTitle;
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const style = { transition, transform: CSS.Transform.toString(transform) };
 
