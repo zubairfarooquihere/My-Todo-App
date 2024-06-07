@@ -9,19 +9,36 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+import { useDispatch } from "react-redux";
+import { TodoListSliceActions } from '../../../../../../store/TodoList-slice';
+
 let success = classes['task__success'];
 
 function Task(props) {
-  const { taskTitle, id } = props; 
+  const { taskTitle, id, todo, taskStatus, setTaskList } = props; 
+  const dispatch = useDispatch();
   const [title, setTitle] = useState(taskTitle);
-  const [status, setStatus] = useState('active');
+  const [status, setStatus] = useState(taskStatus);
 
   // let id = taskTitle;
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const style = { transition, transform: CSS.Transform.toString(transform) };
 
   const changeStatus = () => {
-    setStatus(status === 'active' ? 'completed' : 'active')
+    let changedStatus = status === 'active' ? 'completed' : 'active';
+    setStatus(changedStatus)
+    const allTaskIds = [...todo.allTaskIds];
+    const index = allTaskIds.indexOf(id);
+    if (index > -1) {
+      allTaskIds.splice(index, 1);
+      if (changedStatus === "completed") {
+        allTaskIds.push(id);
+      } else {
+        allTaskIds.unshift(id);
+      }
+      setTaskList(allTaskIds);
+      dispatch(TodoListSliceActions.taskStatusUpdate({todoListId: todo._id, taskId: id, newAllTaskIds: allTaskIds, status: changedStatus}));
+    }
   }
 
   return (

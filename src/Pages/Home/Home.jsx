@@ -7,11 +7,11 @@ import TodoLists from "../../Components/Home/TodoLists/TodoLists";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 export default function Home() {
-  const todoListSlice = useSelector((state) => state.TodoListSlice.todoList);
-  const [list, setList] = useState(todoListSlice.allTodos);
+  // const todoListSlice = useSelector((state) => state.TodoListSlice.todoList);
+  const [list, setTodoList] = useState([]);
   const getTaskPos = (id, array) => array.findIndex((task) => task === id);
   
   const handleDragEnd = (event) => {
@@ -20,17 +20,17 @@ export default function Home() {
     const originalPos = getTaskPos(active.id, list);
     const newPos = getTaskPos(over.id, list);
     let gotSubTab = arrayMove(list, originalPos, newPos);
-    setList(gotSubTab);
+    setTodoList(gotSubTab);
   }
 
   return (
     <>
       <div className={classes.homePage}>
-        <Tabs />
+        <Tabs setTodoList={setTodoList} />
           <div className={classes.homePage__todoLand}>
             <div className={classes['homePage__todoLand--two']}>
               <DndContext id="main" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >
-                <TodoLists arr={list} todoListSlice={todoListSlice} />
+                <TodoLists idsList={list} />
               </DndContext>
             </div>
           </div>

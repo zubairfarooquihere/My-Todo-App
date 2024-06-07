@@ -12,7 +12,8 @@ import { AnimatePresence } from 'framer-motion';
 import { useSelector, useDispatch } from "react-redux";
 import { TabsActions } from '../../../store/Tabs-slice';
 
-function Tabs() {
+function Tabs(props) {
+  const { setTodoList } = props;
   const dispatch = useDispatch();
   const tabsData = useSelector((state) => state.TabsSlice.tabsData);
   const [infoWidget, setInfoWidget] = useState(false);
@@ -38,11 +39,14 @@ function Tabs() {
         }else{
           const SubtabSelected = AllSubTabs[0];
           setSubTabSelected(SubtabSelected._id);
+          // console.log(SubtabSelected.todos);
+          setTodoList(SubtabSelected.todos)
         }
       }
     }else{
       setMainTabSelected(null);
       setSubTabSelected(null);
+      setTodoList([]);
     }
   },[tabsData]); 
 
@@ -79,7 +83,7 @@ function Tabs() {
       </AnimatePresence>
       <div className={classes.tabs}>
         <DndContext id="subtab" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >
-          {mainTabSelectedData && <Subtabs mainTabSelectedData={mainTabSelectedData} subTabSelectedID={subTabSelectedID} setSubTabSelected={setSubTabSelected} />}
+          {mainTabSelectedData && <Subtabs mainTabSelectedData={mainTabSelectedData} subTabSelectedID={subTabSelectedID} setSubTabSelected={setSubTabSelected} setTodoList={setTodoList} />}
         </DndContext>
         <div className={classes.tabs__maintab}>
           <span onClick={()=>{setOpenMainTabOption(true)}} className={`${classes['tabs__maintab--tab']}`}>{mainTabSelectedData && mainTabSelectedData.title}</span>

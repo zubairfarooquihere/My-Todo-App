@@ -7,7 +7,7 @@ import { TabsActions } from '../../../../store/Tabs-slice';
 import classes from './Subtabs.module.scss';
 function Subtabs(props) {
   const dispatch = useDispatch();
-  const { mainTabSelectedData, subTabSelectedID, setSubTabSelected } = props;
+  const { mainTabSelectedData, subTabSelectedID, setSubTabSelected, setTodoList } = props;
 
   const addsubtab = () => {
     dispatch(TabsActions.addSubTab({mainTabId: mainTabSelectedData._id}));
@@ -20,7 +20,7 @@ function Subtabs(props) {
         {mainTabSelectedData.subTab.map((tab, index) => {
           let gotclass = `${classes['subtab--tab']}`;
           if(tab._id === subTabSelectedID) {gotclass = `${classes['subtab--tab']} ${classes['subtab--tab--selected']}`;}
-          return <Subtab key={tab._id} id={tab._id} title={tab.title} gotclass={gotclass} onclickFunc={()=>{setSubTabSelected(tab._id)}} />
+          return <Subtab key={tab._id} id={tab._id} title={tab.title} gotclass={gotclass} onclickFunc={()=>{setSubTabSelected(tab._id); setTodoList(tab.todos)}} />
         })}
       </SortableContext>
       <span key={'addsubtab'} onClick={addsubtab} className={`${classes['subtab--tab']} ${classes['subtab--tab--addoption']}`}><FaCirclePlus /></span>

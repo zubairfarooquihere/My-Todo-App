@@ -13,13 +13,12 @@ const arr = ['Task 1', 'Task 2', 'Task 3'];
 
 function TodoList(props) {
   const { id, allTaskIds, todo } = props;
-  // console.log(todo);
-  // let id = name;
+  const [list, setList] = useState(allTaskIds);
+
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const style = { transition, transform: CSS.Transform.toString(transform) };
   const getTaskPos = (id, array) => array.findIndex((task) => task === id);
 
-  const [list, setList] = useState(allTaskIds);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -32,9 +31,9 @@ function TodoList(props) {
 
   return (
     <div id={id} style={style} className={classes.TodoList}>
-      <Header name={todo.title} setNodeRef={setNodeRef} attributes={attributes} listeners={listeners} />
+      <Header id={id} name={todo.title} setNodeRef={setNodeRef} attributes={attributes} listeners={listeners} />
       <DndContext id="TaskList" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >
-        <TaskList list={list} todo={todo} />
+        <TaskList list={list} todo={todo} setList={setList} />
       </DndContext>
     </div>
   );
