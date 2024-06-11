@@ -41,13 +41,24 @@ function Task(props) {
     }
   }
 
+  const deleteTask = (taskId) => {
+    console.log(todo);
+    const taskIds = [...todo.allTaskIds]
+    const index = taskIds.indexOf(taskId);
+    if (index > -1) {
+      taskIds.splice(index, 1);
+      setTaskList(taskIds);
+      dispatch(TodoListSliceActions.deleteTask({todoId: todo._id, taskId: taskId, taskListIds: taskIds}));
+    }
+  }
+
   return (
     <>
     <div id={id} style={style} className={status === 'active' ? classes['task'] : `${classes['task']} ${success}`}>
       <span ref={setNodeRef} {...attributes} {...listeners} className={classes.handleBar}><RxDragHandleDots2 /></span>
       <span onClick={changeStatus} className={classes.checkmark} >{status === 'active' ? <FaRegCircle />: <FaRegCheckCircle />}</span>
       <input onChange={(e)=>{setTitle(e.target.value)}} className={classes.task__name} value={title} />
-      <button className={classes.task__button}><RxCross1 /></button>
+      <button onClick={()=>{deleteTask(id)}} className={classes.task__button}><RxCross1 /></button>
     </div>
     </>
   );

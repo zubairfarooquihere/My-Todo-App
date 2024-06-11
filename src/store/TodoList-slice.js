@@ -50,6 +50,21 @@ const TodoListSlice = createSlice({
       state.todoList[todoListId].tasks[taskId].status = status;
       state.todoList[todoListId].allTaskIds = newAllTaskIds;
     },
+    addTask(state, action) {
+      const { todoId, taskObj, taskListIds } = action.payload;
+      state.todoList[todoId].allTaskIds = taskListIds;
+      state.todoList[todoId].tasks[taskObj._id] = taskObj;
+    },
+    deleteTask(state, action) {
+      const { todoId, taskId, taskListIds } = action.payload;
+      state.todoList[todoId].allTaskIds = taskListIds;
+      const { [taskId]: removedTask, ...remainingTasks } = state.todoList[todoId].tasks;
+      state.todoList[todoId].tasks = remainingTasks;
+    },
+    sortTaskList(state, action) {
+      const { todoId, taskListIds } = action.payload;
+      state.todoList[todoId].allTaskIds = taskListIds;
+    }
   },
 });
 

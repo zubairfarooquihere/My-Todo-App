@@ -12,13 +12,13 @@ function TodoLists(props) {
   const todoListSlice = useSelector((state) => state.TodoListSlice.todoList);
   // console.log(todosIds);
   useEffect(()=>{
-    setTodoIds(idsList)
+    // setTodoIds(idsList)
   },[idsList]);
 
   return (
     <div className={classes.TodoLists}>
-      <SortableContext id='main' items={todosIds} strategy={horizontalListSortingStrategy}>
-        {todosIds.map((id) => {
+      <SortableContext id='main' items={idsList} strategy={horizontalListSortingStrategy}>
+        {idsList.map((id) => {
           const list = todoListSlice[id];
           return <TodoList key={id} id={id} allTaskIds={list.allTaskIds} todoListSlice={todoListSlice} todo={list} />;
         })}
