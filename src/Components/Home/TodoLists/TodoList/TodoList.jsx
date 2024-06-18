@@ -13,9 +13,10 @@ import { useDispatch } from "react-redux";
 import { TodoListSliceActions } from '../../../../store/TodoList-slice';
 
 function TodoList(props) {
-  const { id, allTaskIds, todo } = props;
+  const { id, todosIds, setTodoList, allTaskIds, todo } = props;
   const dispatch = useDispatch();
   const [list, setList] = useState(allTaskIds);
+  const [displayList, setDisplayList] = useState('All');
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const style = { transition, transform: CSS.Transform.toString(transform) };
@@ -32,11 +33,15 @@ function TodoList(props) {
     dispatch(TodoListSliceActions.sortTaskList({todoId: id, taskListIds: gotSubTab}));
   }
 
+  const getDisplayList = (value) => {
+    setDisplayList(value);
+  }
+
   return (
     <div id={id} style={style} className={classes.TodoList}>
-      <Header id={id} name={todo.title} taskList={list} setTaskList={setList} setNodeRef={setNodeRef} attributes={attributes} listeners={listeners} />
+      <Header id={id} todo={todo} todosIds={todosIds} setTodoList={setTodoList} todoList={allTaskIds} name={todo.title} taskList={list} setTaskList={setList} setNodeRef={setNodeRef} attributes={attributes} listeners={listeners} getDisplayList={getDisplayList} />
       <DndContext id="TaskList" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >
-        <TaskList list={list} todo={todo} setList={setList} />
+        <TaskList list={list} todo={todo} setList={setList} displayList={displayList} />
       </DndContext>
     </div>
   );

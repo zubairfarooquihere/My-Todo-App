@@ -13,14 +13,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { TabsActions } from '../../../store/Tabs-slice';
 
 function Tabs(props) {
-  const { setTodoList } = props;
+  const { mainTabSelectedData, setMainTabSelected, subTabSelectedID, setSubTabSelected, setTodoList } = props;
   const dispatch = useDispatch();
   const tabsData = useSelector((state) => state.TabsSlice.tabsData);
   const [infoWidget, setInfoWidget] = useState(false);
   const [openMainTabOption, setOpenMainTabOption] = useState(false);
   const [allMainTabsIDs, setAllMainTabs] = useState([]);
-  const [mainTabSelectedData, setMainTabSelected] = useState(null);//tabsData['#@123']
-  const [subTabSelectedID, setSubTabSelected] = useState(null);
+  // const [mainTabSelectedData, setMainTabSelected] = useState(null);
+  // const [subTabSelectedID, setSubTabSelected] = useState(null);
 
   useEffect(()=>{
     let gotMainTabsId = tabsData['MainTabs'];

@@ -58,13 +58,25 @@ const TodoListSlice = createSlice({
     deleteTask(state, action) {
       const { todoId, taskId, taskListIds } = action.payload;
       state.todoList[todoId].allTaskIds = taskListIds;
-      const { [taskId]: removedTask, ...remainingTasks } = state.todoList[todoId].tasks;
+      const { [taskId]: removedTask, ...remainingTasks } =
+        state.todoList[todoId].tasks;
       state.todoList[todoId].tasks = remainingTasks;
     },
     sortTaskList(state, action) {
       const { todoId, taskListIds } = action.payload;
       state.todoList[todoId].allTaskIds = taskListIds;
-    }
+    },
+    deleteTodo(state, action) {
+      const { todoId } = action.payload;
+      // Check if the todoId exists in the todoList
+      const todo = state.todoList[todoId];
+      if (todo) {
+        // Remove the todoId from the allTodos array
+        state.todoList.allTodos = state.todoList.allTodos.filter((id) => id !== todoId);
+        // Delete the todo from the todoList
+        delete state.todoList[todoId];
+      }
+    },
   },
 });
 

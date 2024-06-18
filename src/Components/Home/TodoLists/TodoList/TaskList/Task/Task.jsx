@@ -42,7 +42,6 @@ function Task(props) {
   }
 
   const deleteTask = (taskId) => {
-    console.log(todo);
     const taskIds = [...todo.allTaskIds]
     const index = taskIds.indexOf(taskId);
     if (index > -1) {

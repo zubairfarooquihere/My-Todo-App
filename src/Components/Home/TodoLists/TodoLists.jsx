@@ -7,8 +7,7 @@ import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortabl
 import { useSelector } from "react-redux";
 
 function TodoLists(props) {
-  const { idsList } = props;
-  const [todosIds, setTodoIds] = useState(idsList);
+  const { idsList, setTodoList } = props;
   const todoListSlice = useSelector((state) => state.TodoListSlice.todoList);
   // console.log(todosIds);
   useEffect(()=>{
@@ -20,7 +19,11 @@ function TodoLists(props) {
       <SortableContext id='main' items={idsList} strategy={horizontalListSortingStrategy}>
         {idsList.map((id) => {
           const list = todoListSlice[id];
-          return <TodoList key={id} id={id} allTaskIds={list.allTaskIds} todoListSlice={todoListSlice} todo={list} />;
+          if(list){
+            return <TodoList key={id} todosIds={idsList} setTodoList={setTodoList} id={id} allTaskIds={list.allTaskIds} todoListSlice={todoListSlice} todo={list} />;
+          }else{
+            console.error(`error with todo id: ${id}`);
+          }
         })}
       </SortableContext>
     </div>

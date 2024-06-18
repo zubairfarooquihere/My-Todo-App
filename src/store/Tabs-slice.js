@@ -28,13 +28,13 @@ const TabsSlice = createSlice({
   initialState: { tabsData: tabsData }, // Make sure 'item' is initialized as an empty array
   reducers: {
     addTodoinSubTab(state, action) {
-      console.log('NANANANA');
+      console.log("NANANANA");
     },
     addMainTab(state, action) {
       let { title } = action.payload;
       // console.log("mainTabId:", mainTabId);
       const mainTabId = "#" + Math.random().toString(36).substring(2, 9); // Generate a random alphanumeric string
-      state.tabsData[mainTabId] = { _id: mainTabId, title: title, subTab: [] }
+      state.tabsData[mainTabId] = { _id: mainTabId, title: title, subTab: [] };
       state.tabsData.MainTabs.push(mainTabId);
     },
     renameMainTab(state, action) {
@@ -53,7 +53,9 @@ const TabsSlice = createSlice({
         // Create a new object for tabsData without the specified mainTabId
         let demoTabs = JSON.parse(JSON.stringify(state.tabsData));
         const { [mainTabId]: deletedTab, ...updatedTabsData } = demoTabs;
-        updatedTabsData.MainTabs = updatedTabsData.MainTabs.filter((item)=>{ return item !== mainTabId});
+        updatedTabsData.MainTabs = updatedTabsData.MainTabs.filter((item) => {
+          return item !== mainTabId;
+        });
         state.tabsData = updatedTabsData;
       } else {
         console.error(`Main tab with ID ${mainTabId} does not exist.`);
@@ -64,7 +66,7 @@ const TabsSlice = createSlice({
       const { mainTabId, newList } = action.payload;
       // Check if the mainTabId exists in the state
       if (state.tabsData[mainTabId]) {
-        state.tabsData.MainTabs = newList
+        state.tabsData.MainTabs = newList;
       } else {
         console.error(`Main tab with ID ${mainTabId} does not exist.`);
         return state; // Return the current state unchanged
@@ -131,6 +133,32 @@ const TabsSlice = createSlice({
       } else {
         console.error(`Main tab with ID ${mainTabId} does not exist.`);
         return state; // Return the current state unchanged
+      }
+    },
+    sortSubTabTodos(state, action) {
+      const { mainTabId, subTabId, todosList } = action.payload;
+      // Find the main tab by mainTabId
+      const mainTab = state.tabsData[mainTabId];
+      if (mainTab) {
+        // Find the sub tab by subTabId within the main tab's subTab array
+        const subTab = mainTab.subTab.find((subTab) => subTab._id === subTabId);
+        if (subTab) {
+          // Replace the todos array with the new todosList
+          subTab.todos = todosList;
+        }
+      }
+    },
+    deleteTodoIdInSubTab(state, action) {
+      const { mainTabId, subTabId, todoId } = action.payload;
+      // Find the main tab by mainTabId
+      const mainTab = state.tabsData[mainTabId];
+      if (mainTab) {
+        // Find the sub tab by subTabId within the main tab's subTab array
+        const subTab = mainTab.subTab.find((subTab) => subTab._id === subTabId);
+        if (subTab) {
+          // Replace the todos array with a new array excluding the todoId
+          subTab.todos = subTab.todos.filter((todo) => todo !== todoId);
+        }
       }
     },
   },
