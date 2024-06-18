@@ -37,7 +37,7 @@ export default function Home() {
           <div className={classes.homePage__todoLand}>
             <div className={classes['homePage__todoLand--two']}>
               <DndContext id="main" collisionDetection={closestCorners} onDragEnd={handleDragEnd} >
-                <TodoLists idsList={list} setTodoList={setTodoList} />
+                <TodoLists idsList={list} setTodoList={setTodoList} mainTabSelectedData={mainTabSelectedData} subTabSelectedID={subTabSelectedID} />
               </DndContext>
             </div>
           </div>

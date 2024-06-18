@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//Idle format
+// let todoList = {
+//   todos: {},
+//   tasks: {},
+//   todosIds: [],
+//   tasksIds: []
+// }
 let todoList = {
   "#@123Todo": {
     _id: "#@123Todo",
@@ -39,6 +46,12 @@ const TodoListSlice = createSlice({
   name: "TodoList",
   initialState: { todoList: todoList }, // Make sure 'item' is initialized as an empty array
   reducers: {
+    addNewTodo(state, action) {
+      const { newTodo } = action.payload;
+      state.todoList[newTodo._id] = newTodo;
+      state.todoList.allTodos.push(newTodo._id)
+      // console.log(JSON.parse(JSON.stringify(state.todoList)));
+    },
     todoListTitleChange(state, action) {
       const { todoListId, title } = action.payload;
       if (state.todoList[todoListId].title !== title) {
@@ -49,6 +62,10 @@ const TodoListSlice = createSlice({
       const { todoListId, taskId, newAllTaskIds, status } = action.payload;
       state.todoList[todoListId].tasks[taskId].status = status;
       state.todoList[todoListId].allTaskIds = newAllTaskIds;
+    },
+    taskTitleUpdate(state, action) {
+      const { todoListId, taskId, newTitle } = action.payload;
+      state.todoList[todoListId].tasks[taskId].title = newTitle;
     },
     addTask(state, action) {
       const { todoId, taskObj, taskListIds } = action.payload;

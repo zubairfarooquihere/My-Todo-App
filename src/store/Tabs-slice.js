@@ -27,8 +27,15 @@ const TabsSlice = createSlice({
   name: "Tabs",
   initialState: { tabsData: tabsData }, // Make sure 'item' is initialized as an empty array
   reducers: {
-    addTodoinSubTab(state, action) {
-      console.log("NANANANA");
+    addNewTodoInSubTab(state, action) {
+      const { mainTabId, subTabId, newTodoId } = action.payload
+      const mainTab = state.tabsData[mainTabId];
+      if (mainTab) {
+        const subTab = mainTab.subTab.find((subTab) => subTab._id === subTabId);
+        if (subTab) {
+          subTab.todos.push(newTodoId);
+        }
+      }
     },
     addMainTab(state, action) {
       let { title } = action.payload;

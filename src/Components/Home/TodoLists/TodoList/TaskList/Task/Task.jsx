@@ -51,12 +51,16 @@ function Task(props) {
     }
   }
 
+  const updatetitle = () => {
+    dispatch(TodoListSliceActions.taskTitleUpdate({todoListId: todo._id, taskId: id, newTitle: title}));
+  }
+
   return (
     <>
     <div id={id} style={style} className={status === 'active' ? classes['task'] : `${classes['task']} ${success}`}>
       <span ref={setNodeRef} {...attributes} {...listeners} className={classes.handleBar}><RxDragHandleDots2 /></span>
       <span onClick={changeStatus} className={classes.checkmark} >{status === 'active' ? <FaRegCircle />: <FaRegCheckCircle />}</span>
-      <input onChange={(e)=>{setTitle(e.target.value)}} className={classes.task__name} value={title} />
+      <input onChange={(e)=>{setTitle(e.target.value)}} onBlur={updatetitle} className={classes.task__name} value={title} />
       <button onClick={()=>{deleteTask(id)}} className={classes.task__button}><RxCross1 /></button>
     </div>
     </>

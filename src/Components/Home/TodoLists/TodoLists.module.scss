@@ -1,8 +1,25 @@
+.addbutton {
+  background-color: #e4f2f7;
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  
+  button {
+    cursor: pointer;
+    color: rgb(235, 255, 255);
+    border: 2px solid #92b6c4;
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 3rem;
+    background-color: #8bc2d6;
+  }
+}
+
 .TodoLists {
+  background-color: #e4f2f7;
   user-select: none;
   display: flex;
   flex-wrap: wrap;
   padding: 2.5rem;
-  background-color: #e4f2f7;
   min-height: 47rem;
 }
